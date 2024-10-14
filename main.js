@@ -160,7 +160,7 @@ button_footer2.addEventListener('click', function cambiar_pregunta() {
     }
   }
 });
-// Este solo si. Pero el de arriba toca darle una vuelta
+// Este solo si lo realicé. Pero el de arriba toca darle una vuelta
 button_footer.addEventListener('click', function prew_pregunta(){
   if(index > 0){
     button_footer2.disabled = false;
