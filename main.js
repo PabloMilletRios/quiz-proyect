@@ -1,14 +1,13 @@
 import './style.css'
 //Textos Etiquetas
 const text_title = "Quiz Question";
-const text_p = "What is the capital of France?";
+let text_p;
 const text_answers = [
   "London",
   "Berlin",
   "Paris",
   "Madrid",
 ];
-
 
 const text_btn1 = "Previous";
 const text_btn2 = "Next";
@@ -41,7 +40,7 @@ ul.setAttribute("class", "container-answers");
 });
  
 
-//Li sin ForEach .
+//Li sin ForEach 
 
 /*const li = document.createElement("li");
 li.setAttribute = document.createElement("class","container-answers");
@@ -73,3 +72,95 @@ button_footer2.textContent = text_btn2
 body.append(div);
 div.append(h2, p, ul, div_footer);
 div_footer.append(button_footer, button_footer2);
+
+
+/*------Funcionalidad--------*/
+
+const banco_preguntas = [
+  "What is the capital of France?",
+  "What is the longest river in the world?",
+  "Who wrote Romeo and Juliet?",
+  "How many planets are there in our solar system?",
+  ]
+  
+if (p.textContent = banco_preguntas[0]) {
+  button_footer.setAttribute('disabled','disabled');
+}
+
+//Creo un contador para controlar la funcionalidad del array para desactivar al contador 
+let contadorPrevoius = 0;
+
+//Funcion para controlar el evento
+button_footer2.addEventListener('click',function next_prevoius_work() {
+  button_footer.removeAttribute('disabled');
+});
+
+/*button_footer.addEventListener('click', function disabled_prevoius() {
+  if (contadorPrevoius = 0){
+    button_footer.setAttribute('disabled','disabled');
+  }
+})*/
+
+
+//-----Mi codigo CORREGIR-----//
+
+/*let index = 0; // Índice inicial
+p.textContent = banco_preguntas[0];
+
+
+button_footer2.addEventListener('click', function cambiar_pregunta() {
+  if (index < banco_preguntas.length -1) {
+    index++; // Incrementa el índice para la siguiente pregunta
+    let pregunta = banco_preguntas[index]; // Accede a la pregunta actual
+    console.log(pregunta);
+    p.textContent = pregunta;
+    button_footer2.disabled = index ===banco_preguntas.length;
+  } 
+})*/
+
+
+//---------ChatGpt-------//
+
+let index = 0; // Índice inicial
+p.textContent = banco_preguntas[index]; // Muestra la primera pregunta
+button_footer.setAttribute('disabled', 'disabled'); // Desactiva el botón "Previous"
+
+// Funcionalidad para el botón "Next"
+button_footer2.addEventListener('click', function cambiar_pregunta() {
+  if (index < banco_preguntas.length - 1) {
+    index++; // Incrementa el índice para la siguiente pregunta
+    p.textContent = banco_preguntas[index]; // Muestra la nueva pregunta
+    button_footer.disabled = false; // Activa el botón "Previous"
+    
+    // Desactiva el botón "Next" si se ha llegado al final
+    if (index === banco_preguntas.length - 1) {
+      button_footer2.disabled = true;
+    }
+  }
+});
+// Este solo si. Pero el de arriba toca darle una vuelta
+button_footer.addEventListener('click', function prew_pregunta(){
+  if(index > 0){
+    button_footer2.disabled = false;
+    index--;
+    console.log(banco_preguntas[index])
+    p.textContent = banco_preguntas[index];
+    if (index === 0) {
+      button_footer.disabled = true;
+    }
+  }
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
