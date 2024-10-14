@@ -13,6 +13,7 @@ const text_btn1 = "Previous";
 const text_btn2 = "Next";
 
 
+let index = 0; // Índice inicial
 
 //Etiquetas HTML
 const body = document.querySelector("body");
@@ -27,17 +28,36 @@ const p = document.createElement("p2");
 p.textContent = text_p;
 
 
+
+//-----Preguntas ejercicio-----//
+
+const banco_respuestas = [
+  ["London" , "Berlín", "Paris", "Madrid"],
+  ["Amazonas", "Nilo", "Yangtsé", "Miño"],
+  ["Jane Austen", "Cervantes", "William Shakerpeare", "Charles Dickens"],
+  ["7", "8", "9", "10"],
+  ]
+
+
+function asignar_respuestas() {
+while(ul.firstChild){
+  ul.removeChild(ul.firstChild);
+}
+  banco_respuestas[index].forEach(answer => {
+    const li = document.createElement("li");
+    const button_answer = document.createElement("button");
+    button_answer.setAttribute("class", "answer-btn");
+    button_answer.textContent = answer;
+    li.appendChild(button_answer);
+    ul.appendChild(li);
+  });
+}
+
 const ul = document.createElement("ul");
 ul.setAttribute("class", "container-answers");
- text_answers.forEach(answer => {
-  const li = document.createElement("li");
-  const button_answer = document.createElement("button");
-  button_answer.setAttribute("class", "answer-btn");
-  button_answer.textContent = answer;
-  li.appendChild(button_answer);
-  ul.appendChild(li);
 
-});
+
+
  
 
 //Li sin ForEach 
@@ -121,20 +141,22 @@ button_footer2.addEventListener('click', function cambiar_pregunta() {
 
 //---------ChatGpt-------//
 
-let index = 0; // Índice inicial
-p.textContent = banco_preguntas[index]; // Muestra la primera pregunta
-button_footer.setAttribute('disabled', 'disabled'); // Desactiva el botón "Previous"
 
+p.textContent = banco_preguntas[index]; // Muestra la primera pregunta
+asignar_respuestas(); //Muestra las primeras respuestas NO GPT
 // Funcionalidad para el botón "Next"
 button_footer2.addEventListener('click', function cambiar_pregunta() {
   if (index < banco_preguntas.length - 1) {
     index++; // Incrementa el índice para la siguiente pregunta
+    asignar_respuestas(); //NO GPT
     p.textContent = banco_preguntas[index]; // Muestra la nueva pregunta
     button_footer.disabled = false; // Activa el botón "Previous"
     
     // Desactiva el botón "Next" si se ha llegado al final
     if (index === banco_preguntas.length - 1) {
       button_footer2.disabled = true;
+
+      
     }
   }
 });
@@ -143,6 +165,7 @@ button_footer.addEventListener('click', function prew_pregunta(){
   if(index > 0){
     button_footer2.disabled = false;
     index--;
+    asignar_respuestas();
     console.log(banco_preguntas[index])
     p.textContent = banco_preguntas[index];
     if (index === 0) {
@@ -150,8 +173,6 @@ button_footer.addEventListener('click', function prew_pregunta(){
     }
   }
 })
-
-
 
 
 
