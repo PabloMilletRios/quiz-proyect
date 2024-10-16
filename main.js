@@ -73,6 +73,20 @@ function asignar_respuestas() {
 while(ul.firstChild){
   ul.removeChild(ul.firstChild);
 }
+let ArrayButtons = [];  
+
+function respuestaCorrecta(button,Arraybuttons) {
+  button.addEventListener("click",function(){
+    button.style.backgroundColor = '#3CB371';
+
+    Arraybuttons.forEach(botones => {
+      if(botones != button){
+      botones.style.backgroundColor = 'white';}
+
+    });
+  });
+}
+   // 02
   quiz_data[index].respuestas.forEach(answer => {
     const li = document.createElement("li");
     const button_answer = document.createElement("button");
@@ -80,7 +94,13 @@ while(ul.firstChild){
     button_answer.textContent = answer;
     li.appendChild(button_answer);
     ul.appendChild(li);
-  });
+    
+    ArrayButtons.push(button_answer);
+    respuestaCorrecta(button_answer,ArrayButtons);
+  }
+);
+
+
 }
 
 const ul = document.createElement("ul");
@@ -88,7 +108,12 @@ ul.setAttribute("class", "container-answers");
 
 
 
- 
+function saveButton(ArrayButtons) {
+  const indexNum = index;
+  const textButton = respuestaCorrecta(button).textContent;
+  
+}
+
 
 //Li sin ForEach 
 
