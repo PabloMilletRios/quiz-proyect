@@ -34,7 +34,7 @@ p.textContent = text_p;
 
 const quiz_data = [
   {
-    p: " What is the capital of France",
+    p: " What is the capital of France?",
     respuestas: [
       "London",
       "Berlín",
@@ -71,7 +71,7 @@ const quiz_data = [
 const ul = document.createElement("ul");
 ul.setAttribute("class", "container-answers");
 
-let saveRespuesta = null;
+let respuestasGuardadas = [];
 
 function asignar_respuestas() {
   while (ul.firstChild) {
@@ -80,7 +80,7 @@ function asignar_respuestas() {
   let ArrayButtons = [];
   function respuestaCorrecta(button, Arraybuttons,answer) {
     button.addEventListener("click", function () {
-      saveRespuesta = answer;
+      respuestasGuardadas[index] = answer;
       button.style.backgroundColor = '#3CB371';
 
       Arraybuttons.forEach(botones => {
@@ -104,22 +104,13 @@ function asignar_respuestas() {
     ArrayButtons.push(button_answer);
     respuestaCorrecta(button_answer, ArrayButtons, answer);
   
-    if (saveRespuesta === answer) {
+    if (respuestasGuardadas[index] === answer) {
       button_answer.style.backgroundColor = '#3CB371';
     } else {
       button_answer.style.backgroundColor = 'white';
     }
   });
   
-}
-
-
-
-
-function saveButton(ArrayButtons) {
-  const indexNum = index;
-  const textButton = respuestaCorrecta(button).textContent;
-
 }
 
 
