@@ -17,7 +17,7 @@ div.setAttribute("class", "container");
 
 const h2 = document.createElement("h2");
 h2.textContent = text_title;
-const p = document.createElement("p2");
+const p = document.createElement("p");
 p.textContent = text_p;
 
 
@@ -32,61 +32,67 @@ p.textContent = text_p;
   ]
 */
 
-  const quiz_data = [
-      {
-      p: " What is the capital of France",
-      respuestas: [
-        "London",
-        "Berlín",
-        "Paris", 
-        "Madrid"],
-    },
-    {
-      p: "What is the longest river in the world?",
-      respuestas: [
-        "Amazonas",
-        "Nilo",
-        "Yangtsé",
-        "Miño"],
-    },
-    {
-      p: "Who wrote Romeo and Juliet?",
-      respuestas: [
-        "Jane Austen",
-        "Cervantes",
-        "William Shakerpeare",
-        "Charles Dickens"],
-    },
-    {
-      p: "How many planets are there in our solar system?",
-      respuestas: [
-        "7",
-        "8",
-        "9",
-        "10"],
-    }
-  ];
-  
-  
+const quiz_data = [
+  {
+    p: " What is the capital of France",
+    respuestas: [
+      "London",
+      "Berlín",
+      "Paris",
+      "Madrid"],
+  },
+  {
+    p: "What is the longest river in the world?",
+    respuestas: [
+      "Amazonas",
+      "Nilo",
+      "Yangtsé",
+      "Miño"],
+  },
+  {
+    p: "Who wrote Romeo and Juliet?",
+    respuestas: [
+      "Jane Austen",
+      "Cervantes",
+      "William Shakerpeare",
+      "Charles Dickens"],
+  },
+  {
+    p: "How many planets are there in our solar system?",
+    respuestas: [
+      "7",
+      "8",
+      "9",
+      "10"],
+  }
+];
+
+
+const ul = document.createElement("ul");
+ul.setAttribute("class", "container-answers");
+
+let saveRespuesta = null;
 
 function asignar_respuestas() {
-while(ul.firstChild){
-  ul.removeChild(ul.firstChild);
-}
-let ArrayButtons = [];  
+  while (ul.firstChild) {
+    ul.removeChild(ul.firstChild);
+  }
+  let ArrayButtons = [];
+  function respuestaCorrecta(button, Arraybuttons,answer) {
+    button.addEventListener("click", function () {
+      saveRespuesta = answer;
+      button.style.backgroundColor = '#3CB371';
 
-function respuestaCorrecta(button,Arraybuttons) {
-  button.addEventListener("click",function(){
-    button.style.backgroundColor = '#3CB371';
+      Arraybuttons.forEach(botones => {
+        if (botones != button) {
+          botones.style.backgroundColor = 'white';
+        }
 
-    Arraybuttons.forEach(botones => {
-      if(botones != button){
-      botones.style.backgroundColor = 'white';}
-
+      });
     });
-  });
-}
-   // 02
+  }
+
+
   quiz_data[index].respuestas.forEach(answer => {
     const li = document.createElement("li");
     const button_answer = document.createElement("button");
@@ -94,24 +100,26 @@ function respuestaCorrecta(button,Arraybuttons) {
     button_answer.textContent = answer;
     li.appendChild(button_answer);
     ul.appendChild(li);
-    
+  
     ArrayButtons.push(button_answer);
-    respuestaCorrecta(button_answer,ArrayButtons);
-  }
-);
-
-
+    respuestaCorrecta(button_answer, ArrayButtons, answer);
+  
+    if (saveRespuesta === answer) {
+      button_answer.style.backgroundColor = '#3CB371';
+    } else {
+      button_answer.style.backgroundColor = 'white';
+    }
+  });
+  
 }
 
-const ul = document.createElement("ul");
-ul.setAttribute("class", "container-answers");
 
 
 
 function saveButton(ArrayButtons) {
   const indexNum = index;
   const textButton = respuestaCorrecta(button).textContent;
-  
+
 }
 
 
@@ -135,11 +143,11 @@ const div_footer = document.createElement("div");
 div_footer.setAttribute("class", "container-footer");
 
 const button_footer = document.createElement("button");
-button_footer.setAttribute("class","footer-btn");
+button_footer.setAttribute("class", "footer-btn");
 button_footer.textContent = text_btn1;
 
 const button_footer2 = document.createElement("button");
-button_footer2.setAttribute("class","footer-btn");
+button_footer2.setAttribute("class", "footer-btn");
 button_footer2.textContent = text_btn2
 
 //Estructura del body
@@ -156,25 +164,20 @@ const banco_preguntas = [
   "What is the longest river in the world?",
   "Who wrote Romeo and Juliet?",
   "How many planets are there in our solar system?",
-  ]
-  
+]
+
 if (p.textContent = quiz_data[index].p) {
-  button_footer.setAttribute('disabled','disabled');
+  button_footer.setAttribute('disabled', 'disabled');
 }
 
 //Creo un contador para controlar la funcionalidad del array para desactivar al contador 
 let contadorPrevoius = 0;
 
 //Funcion para controlar el evento
-button_footer2.addEventListener('click',function next_prevoius_work() {
+button_footer2.addEventListener('click', function next_prevoius_work() {
   button_footer.removeAttribute('disabled');
 });
 
-/*button_footer.addEventListener('click', function disabled_prevoius() {
-  if (contadorPrevoius = 0){
-    button_footer.setAttribute('disabled','disabled');
-  }
-})*/
 
 
 //-----Mi codigo CORREGIR-----//
@@ -197,38 +200,40 @@ button_footer2.addEventListener('click', function cambiar_pregunta() {
 //---------ChatGpt-------//
 
 
-p.textContent = quiz_data[index].p; // Muestra la primera pregunta
-asignar_respuestas(); //Muestra las primeras respuestas NO GPT
-// Funcionalidad para el botón "Next"
+p.textContent = quiz_data[index].p; 
+asignar_respuestas(); 
+
+
 button_footer2.addEventListener('click', function cambiar_pregunta() {
   if (index < quiz_data.length - 1) {
-    index++; // Incrementa el índice para la siguiente pregunta
-    asignar_respuestas(); //NO GPT
-    p.textContent = quiz_data[index].p; // Muestra la nueva pregunta
-    button_footer.disabled = false; // Activa el botón "Previous"
+    index++; 
+    p.textContent = quiz_data[index].p;
+    asignar_respuestas(); 
     
-    // Desactiva el botón "Next" si se ha llegado al final
+
+    button_footer.disabled = false; 
+
+
     if (index === quiz_data.length - 1) {
       button_footer2.disabled = true;
     }
   }
 });
-// Este solo si lo realicé. Pero el de arriba toca darle una vuelta
-button_footer.addEventListener('click', function prew_pregunta(){
-  if(index > 0){
+//-----------//
+
+
+button_footer.addEventListener('click', function prew_pregunta() {
+  if (index > 0) {
     button_footer2.disabled = false;
     index--;
-    asignar_respuestas();
-    console.log(quiz_data[index].p)
     p.textContent = quiz_data[index].p;
+
+    asignar_respuestas();
     if (index === 0) {
       button_footer.disabled = true;
     }
   }
 })
-
-
-
 
 
 
