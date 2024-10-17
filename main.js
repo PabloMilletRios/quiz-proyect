@@ -4,6 +4,7 @@ const text_title = "Quiz Question";
 let text_p;
 const text_btn1 = "Previous";
 const text_btn2 = "Next";
+const text_btn3 = "Check";
 
 
 let index = 0; // Índice inicial
@@ -139,7 +140,11 @@ button_footer.textContent = text_btn1;
 
 const button_footer2 = document.createElement("button");
 button_footer2.setAttribute("class", "footer-btn");
-button_footer2.textContent = text_btn2
+button_footer2.textContent = text_btn2;
+
+const button_footer3 = document.createElement("button");
+button_footer3.setAttribute("class", "footer-btn");
+button_footer3.textContent = text_btn3;
 
 //Estructura del body
 
