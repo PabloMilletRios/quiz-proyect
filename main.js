@@ -251,10 +251,34 @@ button_footer3.addEventListener("click",function () {
         contadorCorrectas++;
       }
     });
+    crearModal();
   window.alert("Tienes correctas " + contadorCorrectas);
 })
 
 
-function crearModal(contadorCorrectas) {
+  function crearModal() {
   
+  const div_modal = document.createElement("div");
+  div_modal.setAttribute("class","modal");
+ 
+  const div_modal_container = document.createElement("div");
+  div_modal_container.setAttribute("class","modal-content");
+
+  const span_x = document.createElement("span");
+  //span_x.setAttribute("");
+
+  const h2 = document.createElement("h2");
+  h2.setAttribute("class","modal-close");
+  h2.textContent = "Results";
+  
+  const p = document.createElement("p");
+  p.setAttribute("class","modal-close");
+  p.textContent= "You have " + contadorCorrectas + "correct answers out of" + quiz_data.length;
+  
+  body.append(div_modal);
+  div_modal.appendChild(div_modal_container);
+  div_modal_container.appendChild(span_x);
+  div_modal_container.appendChild(h2);
+  div_modal_container.appendChild(p);
+
 }
