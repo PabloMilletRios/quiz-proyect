@@ -41,6 +41,7 @@ const quiz_data = [
       "Berlín",
       "Paris",
       "Madrid"],
+    correcta : "Paris",
   },
   {
     p: "What is the longest river in the world?",
@@ -49,6 +50,7 @@ const quiz_data = [
       "Nilo",
       "Yangtsé",
       "Miño"],
+    correcta: "Nilo",
   },
   {
     p: "Who wrote Romeo and Juliet?",
@@ -57,6 +59,7 @@ const quiz_data = [
       "Cervantes",
       "William Shakerpeare",
       "Charles Dickens"],
+    correcta: "William Shakerpeare",
   },
   {
     p: "How many planets are there in our solar system?",
@@ -65,6 +68,7 @@ const quiz_data = [
       "8",
       "9",
       "10"],
+      correcta: "8",
   }
 ];
 
@@ -83,12 +87,13 @@ function asignar_respuestas() {
     button.addEventListener("click", function () {
       respuestasGuardadas[index] = answer;
       button.style.backgroundColor = '#3CB371';
-
       Arraybuttons.forEach(botones => {
         if (botones != button) {
           botones.style.backgroundColor = 'white';
         }
-
+        if(respuestasGuardadas.length === quiz_data.length){
+          button_footer3.disabled = false;
+        }
       });
     });
   }
@@ -110,6 +115,8 @@ function asignar_respuestas() {
     } else {
       button_answer.style.backgroundColor = 'white';
     }
+
+    
   });
   
 }
@@ -150,7 +157,7 @@ button_footer3.textContent = text_btn3;
 
 body.append(div);
 div.append(h2, p, ul, div_footer);
-div_footer.append(button_footer, button_footer2);
+div_footer.append(button_footer, button_footer2,button_footer3);
 
 
 /*------Funcionalidad--------*/
@@ -213,6 +220,8 @@ button_footer2.addEventListener('click', function cambiar_pregunta() {
     if (index === quiz_data.length - 1) {
       button_footer2.disabled = true;
     }
+    console.log(index);
+    console.log(respuestasGuardadas);
   }
 });
 //-----------//
@@ -228,5 +237,24 @@ button_footer.addEventListener('click', function prew_pregunta() {
     if (index === 0) {
       button_footer.disabled = true;
     }
+    console.log(index);
   }
 })
+
+button_footer3.disabled = true;
+
+let contadorCorrectas = 0;
+
+button_footer3.addEventListener("click",function () {
+  respuestasGuardadas.forEach((respuesta,i)=> {
+    if(respuesta ===quiz_data[i].correcta){
+        contadorCorrectas++;
+      }
+    });
+  window.alert("Tienes correctas " + contadorCorrectas);
+})
+
+
+function crearModal(contadorCorrectas) {
+  
+}
