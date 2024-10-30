@@ -1,4 +1,8 @@
 import './style.css'
+import * as DOMHelper from "./DOMHelper.js";
+import * as mockData from "./mockData.js";
+
+
 //Textos Etiquetas
 const text_title = "Quiz Question";
 let text_p;
